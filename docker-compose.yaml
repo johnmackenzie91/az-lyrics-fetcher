@@ -1,0 +1,9 @@
+version: '2.1'
+services:
+  az-lyrics-app:
+    container_name: az-lyrics-app
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    ports:
+    - 8080:80

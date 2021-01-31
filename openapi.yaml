@@ -1,0 +1,61 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: AZ Lyrics Fetcher
+  contact:
+    name: John Mackenzie
+    email: johnmackenziewebdeveloper@gmail.com
+paths:
+  /fetch:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchRequest'
+      responses:
+        '200':
+          description: The tables that exist on the page requested
+          content:
+            application/json:
+              schema:
+                data:
+                $ref: '#/components/schemas/FetchResponse'
+
+components:
+  schemas:
+    FetchRequest:
+      required:
+        - artist
+        - title
+      properties:
+        artist:
+          type: string
+          description: The name of the artist
+        title:
+          type: string
+          description: The title of the song
+
+    FetchResponse:
+      required:
+        - lyrics
+      properties:
+        lyrics:
+          type: string
+          description: The lyrics of the song
+        errors:
+          description: "An error object"
+          $ref: '#/components/schemas/Error'
+
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: A brief description of what kind of error was received
